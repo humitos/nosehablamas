@@ -1,3 +1,4 @@
 /nosehablamas/local_settings.py
 *.pyc
 /nosehablamas/data.sqlite3
+/nosehablamas/.venv
