@@ -119,6 +119,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+
+    'nosehablamas.news',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -143,3 +145,6 @@ LOGGING = {
         },
     }
 }
+
+# override all this settings
+from local_settings import *
