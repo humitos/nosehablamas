@@ -35,7 +35,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 SITE_ID = 1
 
@@ -45,7 +45,7 @@ USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = False
+USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -105,6 +105,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+
+    'news.context_processors.articles',
+)
+
 ROOT_URLCONF = 'nosehablamas.urls'
 
 TEMPLATE_DIRS = (
@@ -128,6 +139,10 @@ INSTALLED_APPS = (
 
     'south',
     'sorl.thumbnail',
+
+    'django_extensions',
+    # 'devserver',
+    'debug_toolbar',
 
     'nosehablamas.news',
 )
@@ -154,6 +169,10 @@ LOGGING = {
         },
     }
 }
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+ARTICLES_NUM = 2
 
 # override all this settings
 from local_settings import *

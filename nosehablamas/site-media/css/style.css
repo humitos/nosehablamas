@@ -63,8 +63,12 @@
 }
 
 body {
-  width: 95%;
+  width: 75%;
   font-family: sans-serif;
+}
+
+#body {
+  margin-left: 50px;
 }
 
 .news {

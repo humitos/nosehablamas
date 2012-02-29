@@ -1,29 +1,55 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
+{% block title %}Página Principal{% endblock %}
+
 {% block body %}
+
+<div id="news-form">
+  <form method="POST" action="{% url news__add_news %}">
+    {% csrf_token %}
+    {{ news_form.as_p }}
+    <input type="submit" value="Agregar" />
+  </form>
+</div>
+
 {% for n in news %}
-<div class="news title blue">
+
+<div class="news title {% cycle 'green' 'blue' as color %}">
   <h3><a id="news-{{ n.id }}" href="#">{{ n.title }}</a></h3>
 </div>
-{% for a in n.articles_set.all %}
-<div id="article-{{ a.id }}" class="news content blue" style="display: none;">
+
+{% for a in n.article_set.all %}
+{% if forloop.first and n.article_set.all.count > ARTICLES_NUM %}
+<div id="more-{{ a.id }}" class="news content more {{ color }}">
+  <a href="#">Mas</a>
+</div>
+{% endif %}
+<div id="article-{{ a.id }}" class="news content {{ color }}" style="display: {% if forloop.counter > ARTICLES_NUM %}none{% else %}block{% endif %};">
+
   <div class="thumbnail">
-    {% thumbnail a.image "205x115" crop="center" as image %}
-    <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" />
+    {% thumbnail a.image "130x100" crop="center" as image %}
+    <a href="{{ a.url }}" target="_blank"><img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" /></a>
     {% endthumbnail %}
   </div>
+
   <div class="text">
     <h3>{{ a.title }}</h3>
     <p class="description">{{ a.description }}</p>
-    <a class="link" href="{{ a.url }}">{{ a.url }}</a>
-    <p class="date">{{ a.posted_at }}</p>
+    <a class="link" href="{{ a.url }}" targe="_blank">{{ a.url }}</a>
+    <p class="date">{{ a.posted_at|timesince }}</p>
   </div>
+
 </div>
-<div id="more" class="news content more blue" style="display: none;">
-  <a href="#">Mas</a>
-</div>
-</div>
+
 {% endfor %}
+<div id="article-form">
+  <form method="POST" action="{% url news__add_article %}">
+    {% csrf_token %}
+    {{ article_form.url }}
+    <input type="hidden" name="news" value="{{ n.id }}" />
+    <input type="submit" value="Agregar" />
+  </form>
+</div>
 {% endfor %}
 {% endblock %}

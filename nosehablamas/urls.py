@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.static import static
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -16,4 +18,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'', include('news.urls')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# We need this two-next lines because we are not using the default
+# "runserver" command
+# https://docs.djangoproject.com/en/dev/howto/static-files/#serving-static-files-in-development
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
