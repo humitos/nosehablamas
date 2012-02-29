@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
+    <title>{% block title %}{% endblock %} | nosehablamas.com.ar</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+  </head>
+
+  <body>
+
+    <div id="top">
+      <div id="logo">
+	<h1><span class="no">no</span>se<span class="habla">habla</span>mas<span class="comar">.com.ar</span></h1>
+	<p class="legend">que no queden en el olvido...</p>
+      </div>
+      <div id="menu">
+	<ul>
+	  <li><a href="#">ACERCA DE</a></li>
+	  <li><a href="#">CONTACTO</a></li>
+	</ul>
+      </div>
+      <div class="legend">
+      </div>
+    </div>
+
+    <div id="body">
+      {% block body %}{% endblock %}
+    </div>
+
+  </body>
+  
+</html>

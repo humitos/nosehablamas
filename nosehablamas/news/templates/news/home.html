@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+{% for n in news %}
+<div class="news title blue">
+  <h3><a id="news-{{ n.id }}" href="#">{{ n.title }}</a></h3>
+</div>
+{% for a in n.articles_set.all %}
+<div id="article-{{ a.id }}" class="news content blue" style="display: none;">
+  <div class="thumbnail">
+    {% thumbnail a.image "205x115" crop="center" as image %}
+    <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" />
+    {% endthumbnail %}
+  </div>
+  <div class="text">
+    <h3>{{ a.title }}</h3>
+    <p class="description">{{ a.description }}</p>
+    <a class="link" href="{{ a.url }}">{{ a.url }}</a>
+    <p class="date">{{ a.posted_at }}</p>
+  </div>
+</div>
+<div id="more" class="news content more blue" style="display: none;">
+  <a href="#">Mas</a>
+</div>
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}
