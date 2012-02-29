@@ -35,7 +35,7 @@
   border-color: #87ceff;
 }
 
-#menu ul li a:visited {
+#menu ul li a:visited, #menu ul li a:link {
   color: black;
 }
 
