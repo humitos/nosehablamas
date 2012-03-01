@@ -2,3 +2,4 @@
 *.pyc
 /nosehablamas/data.sqlite3
 /nosehablamas/.venv
+/nosehablamas/user-media
