@@ -36,7 +36,7 @@ def add_news(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success('Se agrego correctamente la noticia.')
+            messages.success(request, 'Se agrego correctamente la noticia.')
             return redirect('news__home')
         else:
             kwargs = {

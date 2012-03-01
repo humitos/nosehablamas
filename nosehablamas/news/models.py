@@ -20,3 +20,6 @@ class Article(models.Model):
                               null=True, blank=True)
 
     posted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['posted_at']

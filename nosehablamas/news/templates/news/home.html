@@ -3,12 +3,17 @@
 
 {% block title %}Página Principal{% endblock %}
 
+{% block extra_head %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
+{% endblock %}
+
 {% block body %}
 
 <div id="news-form">
+  <p>Nuevo tema:</p>
   <form method="POST" action="{% url news__add_news %}">
     {% csrf_token %}
-    {{ news_form.as_p }}
+    {{ news_form.title }}
     <input type="submit" value="Agregar" />
   </form>
 </div>
@@ -19,13 +24,11 @@
   <h3><a id="news-{{ n.id }}" href="#">{{ n.title }}</a></h3>
 </div>
 
-{% for a in n.article_set.all %}
-{% if forloop.first and n.article_set.all.count > ARTICLES_NUM %}
-<div id="more-{{ a.id }}" class="news content more {{ color }}">
-  <a href="#">Mas</a>
-</div>
-{% endif %}
-<div id="article-{{ a.id }}" class="news content {{ color }}" style="display: {% if forloop.counter > ARTICLES_NUM %}none{% else %}block{% endif %};">
+{% for a in n.article_set.all reversed %}
+<div id="article-{{ a.id }}"
+     class="news content {{ color }}"
+     name="article-news-{{ n.id }}"
+     style="display: {% if forloop.counter > ARTICLES_NUM %}none{% else %}block{% endif %};">
 
   <div class="thumbnail">
     {% thumbnail a.image "130x100" crop="center" as image %}
@@ -37,10 +40,16 @@
     <h3>{{ a.title }}</h3>
     <p class="description">{{ a.description }}</p>
     <a class="link" href="{{ a.url }}" targe="_blank">{{ a.url }}</a>
-    <p class="date">{{ a.posted_at|timesince }}</p>
+    <p class="date">Hace <abbr title="{{ a.posted_at }}">{{ a.posted_at|timesince }}</abbr></p>
   </div>
 
 </div>
+
+{% if forloop.last and n.article_set.all.count > ARTICLES_NUM %}
+<div id="more-{{ n.id }}" class="news content more {{ color }}">
+  <a href="#">Mas</a>
+</div>
+{% endif %}
 
 {% endfor %}
 <div id="article-form">

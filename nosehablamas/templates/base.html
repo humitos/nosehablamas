@@ -3,9 +3,10 @@
   <head>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
-    <title>{% block title %}{% endblock %} | nosehablamas.com.ar</title>
+    <title>nosehablamas.com.ar | {% block title %}{% endblock %}</title>
     <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+
+    {% block extra_head %}{% endblock %}
   </head>
 
   <body>
