@@ -10,18 +10,17 @@
 {% block body %}
 
 <div id="news-form">
-  <p>Nuevo tema:</p>
   <form method="POST" action="{% url news__add_news %}">
     {% csrf_token %}
     {{ news_form.title }}
-    <input type="submit" value="Agregar" />
+    <input id="news-submit" type="submit" value="Agregar habla" />
   </form>
 </div>
 
 {% for n in news %}
 
 <div class="news title {% cycle 'green' 'blue' as color %}">
-  <h3><a id="news-{{ n.id }}" href="#">{{ n.title }}</a></h3>
+  <h3><a id="news-{{ n.id }}" href="#{{ n.title|slugify }}" name="{{ n.title|slugify }}">{{ n.title }}</a></h3>
 </div>
 
 {% for a in n.article_set.all reversed %}
@@ -52,12 +51,12 @@
 {% endif %}
 
 {% endfor %}
-<div id="article-form">
+<div id="article-form" class="{{ color }}">
   <form method="POST" action="{% url news__add_article %}">
     {% csrf_token %}
     {{ article_form.url }}
     <input type="hidden" name="news" value="{{ n.id }}" />
-    <input type="submit" value="Agregar" />
+    <input id="article-submit" type="submit" value="Agregar link" />
   </form>
 </div>
 {% endfor %}

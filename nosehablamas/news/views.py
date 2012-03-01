@@ -36,7 +36,8 @@ def add_news(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Se agrego correctamente la noticia.')
+            messages.success(request, 'Se agrego correctamente la noticia.',
+                             extra_tags='success')
             return redirect('news__home')
         else:
             kwargs = {
@@ -105,9 +106,11 @@ def add_article(request):
                                content)
             article.save()
 
-            messages.success(request, 'Se agrego correctamente el articulo.')
+            messages.success(request, 'Se agrego correctamente el articulo.',
+                             extra_tags='success')
             return redirect('news__home')
         else:
             messages.error(request, 'Se produjo un error al '
-                           'agregar ese articulo.')
+                           'agregar ese articulo.',
+                           extra_tags='error')
             return redirect('news__home')

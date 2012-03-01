@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.conf.urls.static import static
+from django.views.generic.simple import direct_to_template
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -18,6 +19,12 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'', include('news.urls')),
+
+    url(r'acercade/$', direct_to_template, {'template': 'about.html'},
+        name='about'),
+    url(r'contacto/$', direct_to_template, {'template': 'contact.html'},
+        name='contact'),
+
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # We need this two-next lines because we are not using the default
